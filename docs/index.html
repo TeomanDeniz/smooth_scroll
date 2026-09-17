@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Smooth scroll test bench</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;800&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet"/>
+ </head>
+ <body data-smooth-scroll>
+  <nav class="nav">
+   <a href="#top">Top</a>
+   <a href="#boxes">Boxes</a>
+   <a href="#gallery">Gallery</a>
+   <a href="#nested">Nested</a>
+   <a href="#bottom">Bottom</a>
+  </nav>
+  <main>
+   <section id="top" class="hero">
+    <h1>Scroll<br/>smoothly</h1>
+    <p class="lead">The whole page, the boxes below, and the gallery all ease into place. Nothing is wrapped or transformed: only the real scroll position moves, so clicking, sticky elements and anchor links keep working normally.</p>
+    <div class="controls">
+     <div class="segmented" role="group" aria-label="Easing style">
+      <button type="button" id="mode-ease" aria-pressed="true">Ease out</button>
+      <button type="button" id="mode-friction" aria-pressed="false">Constant friction</button>
+     </div>
+     <label id="duration-control">Duration
+      <input type="range" id="duration" min="0.2" max="2" step="0.1" value="1"/>
+      <output id="duration-value">1s</output>
+     </label>
+     <label id="friction-control" hidden>Friction
+      <input type="range" id="friction" min="0.01" max="0.3" step="0.01" value="0.04"/>
+      <output id="friction-value">0.04</output>
+     </label>
+     <button type="button" id="toggle">Turn off</button>
+    </div>
+    <p class="hint">Try the mouse wheel, a trackpad, the scrollbar, arrow keys, Page Up and Page Down, Home and End, and touch dragging.</p>
+   </section>
+   <section id="boxes">
+    <h2>Two boxes, two speeds</h2>
+    <p class="hint">The left box takes its time, the right one lands quickly. Each sets its own duration with the attribute.</p>
+    <div class="row">
+     <div class="box" data-smooth-scroll="1.6s">
+      <p class="tag">data-smooth-scroll="1.6s"</p>
+      <div class="filler"><span>1</span></div>
+      <div class="filler"><span>2</span></div>
+      <div class="filler"><span>3</span></div>
+      <div class="filler"><span>4</span></div>
+     </div>
+     <div class="box" data-smooth-scroll="0.45s">
+      <p class="tag">data-smooth-scroll="0.45s"</p>
+      <div class="filler"><span>1</span></div>
+      <div class="filler"><span>2</span></div>
+      <div class="filler"><span>3</span></div>
+      <div class="filler"><span>4</span></div>
+     </div>
+    </div>
+   </section>
+   <section id="gallery">
+    <h2>Sideways</h2>
+    <p class="hint">Scroll with a trackpad, or hold Shift and use the wheel.</p>
+    <div class="gallery" data-smooth-scroll="0.8s">
+     <figure><span>01</span></figure>
+     <figure><span>02</span></figure>
+     <figure><span>03</span></figure>
+     <figure><span>04</span></figure>
+     <figure><span>05</span></figure>
+     <figure><span>06</span></figure>
+     <figure><span>07</span></figure>
+     <figure><span>08</span></figure>
+    </div>
+   </section>
+   <section id="nested">
+    <h2>A plain box inside a smooth one</h2>
+    <p class="hint">The inner box has no attribute, so it keeps the browser's own scrolling. When it reaches its end, the scroll continues in the smooth box around it.</p>
+    <div class="box tall" data-smooth-scroll>
+     <p class="tag">smooth</p>
+     <div class="plain">
+      <p class="tag">plain</p>
+      <div class="filler"><span>A</span></div>
+      <div class="filler"><span>B</span></div>
+     </div>
+     <div class="filler"><span>after</span></div>
+     <div class="filler"><span>the end</span></div>
+    </div>
+   </section>
+   <section id="bottom">
+    <h2>The end</h2>
+    <p class="lead">Press Home, or use the menu, to glide back to the top.</p>
+   </section>
+  </main>
+  <script src="smooth_scroll.js"></script>
+  <script>
+let	    scroll = smooth_scroll.start();
+let	    mode = "duration";
+
+const	duration = document.getElementById("duration");
+const	duration_value = document.getElementById("duration-value");
+const	duration_control = document.getElementById("duration-control");
+const	friction = document.getElementById("friction");
+const	friction_value = document.getElementById("friction-value");
+const	friction_control = document.getElementById("friction-control");
+const	mode_ease = document.getElementById("mode-ease");
+const	mode_friction = document.getElementById("mode-friction");
+const	toggle = document.getElementById("toggle");
+
+function
+	apply()
+{
+	if (!scroll.running)
+		return ;
+
+	if (mode === "duration")
+		scroll.set_duration(Number(duration.value), document.body);
+	else
+		scroll.set_friction(Number(friction.value), document.body);
+}
+
+function
+	set_mode(next)
+{
+	mode = next;
+	mode_ease.setAttribute("aria-pressed", String(next === "duration"));
+	mode_friction.setAttribute("aria-pressed", String(next === "friction"));
+	duration_control.hidden = next !== "duration";
+	friction_control.hidden = next === "duration";
+	apply();
+}
+
+duration.addEventListener(
+	"input",
+	function()
+	{
+		duration_value.textContent = duration.value + "s";
+		apply();
+	}
+);
+friction.addEventListener(
+	"input",
+	function()
+	{
+		friction_value.textContent = friction.value;
+		apply();
+	}
+);
+mode_ease.addEventListener("click", function(){set_mode("duration");});
+mode_friction.addEventListener("click", function(){set_mode("friction");});
+toggle.addEventListener(
+	"click",
+	function()
+	{
+		if (scroll.running)
+		{
+			scroll.stop();
+			toggle.textContent = "Turn on";
+		}
+		else
+		{
+			scroll = smooth_scroll.start();
+			toggle.textContent = "Turn off";
+			apply();
+		}
+	}
+);
+  </script>
+ </body>
+</html>
