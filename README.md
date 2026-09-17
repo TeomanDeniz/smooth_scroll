@@ -1,10 +1,10 @@
 # Smooth Scroll (smooth_scroll)
 
-Eased scrolling for any scrollable element, and for the page itself. Nothing is wrapped, moved or transformed: the element's own scroll position is animated, so clicks, sticky elements, anchors and lazy loading keep working.
-
 <p align="center">
- <a href="https://teomandeniz.github.io/SMOOTH_SCROLL_JS/"><img src="https://img.shields.io/badge/Live_Demo-Open-2F5BFF?style=for-the-badge" alt="Live Demo"/></a>
+ <a href="https://teomandeniz.github.io/smooth_scroll/"><img src="https://img.shields.io/badge/Live_Demo-Open-2F5BFF?style=for-the-badge" alt="Live Demo"/></a>
 </p>
+
+Eased scrolling for any scrollable element, and for the page itself. Nothing is wrapped, moved or transformed: the element's own scroll position is animated, so clicks, sticky elements, anchors and lazy loading keep working.
 
 <p align="center">
  <img width="400PX" src="https://raw.githubusercontent.com/TeomanDeniz/TeomanDeniz/main/images/repo_projects/SMOOTH_SCROLL.gif">
