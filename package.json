@@ -1,0 +1,23 @@
+{
+	"name": "smooth_scroll",
+	"version": "1.0.0",
+	"description": "Smooth scrolling addon",
+	"author": "Teoman Deniz",
+	"license": "MIT",
+	"homepage": "https://teomandeniz.github.io/smooth_scroll/",
+	"main": "smooth_scroll.js",
+	"module": "smooth_scroll.mjs",
+	"exports":
+	{
+		".":
+		{
+			"import": "./smooth_scroll.mjs",
+			"require": "./smooth_scroll.js",
+			"default": "./smooth_scroll.js"
+		}
+	},
+	"repository": {"type": "git", "url": "git+https://github.com/TeomanDeniz/smooth_scroll.git"},
+	"files": ["smooth_scroll.js", "smooth_scroll.mjs", "smooth_scroll.min.js", "smooth_scroll.min.js.map", "README.md", "LICENSE"],
+	"keywords": ["smooth", "scroll", "movement"],
+	"sideEffects": true
+}

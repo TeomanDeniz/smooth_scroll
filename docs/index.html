@@ -1,4 +1,29 @@
 <!DOCTYPE html>
+<!--#################################-->
+<!--#        Maximum Tension        #-->
+<!--#################################-->
+<!--#\ \ \ \-__\ \ \ \ \ \ __- \ \ \#-->
+<!--# \ : \ \:!1!-_ \ \_-!1!: \ \:\ #-->
+<!--#\ \:: \ \ \ \ \ \ \ \ \ \ \:: \#-->
+<!--# \ :!: \ \:\:: : : \:\ ::::!:\ #-->
+<!--#\ \ :!:: :!:!1:!:!::1:::!!!:\ \#-->
+<!--# \ \::!::!!1001010!:!11!!::\ \ #-->
+<!--#\ \ :!1!!11000000000011!!:\ \ \#-->
+<!--# \ \ ::::!!!1!!1!!!1!!!::\ \ \ #-->
+<!--#\ \ \ \ ::::!::!:::!::::\ \ \ \#-->
+<!--#################################-->
+<!--# . . . Page: index . . . . . . #-->
+<!--# Programmer: Teoman Deniz. . . #-->
+<!--#_______________________________#-->
+<!--#| Copyright | Maximum Tension |#-->
+<!--#|___________|_________________|#-->
+<!--#|   License | MIT             |#-->
+<!--#|___________|_________________|#-->
+<!--#|    Create | 2026/09/17      |#-->
+<!--#|___________|_________________|#-->
+<!--#|    Update | 2026/09/18      |#-->
+<!--#|___________|_________________|#-->
+<!--#################################-->
 <html lang="en">
  <head>
   <meta charset="utf-8"/>
@@ -93,76 +118,76 @@
   </main>
   <script src="smooth_scroll.js"></script>
   <script>
-let	    scroll = smooth_scroll.start();
-let	    mode = "duration";
+let     scroll = smooth_scroll.start();
+let     mode = "duration";
 
-const	duration = document.getElementById("duration");
-const	duration_value = document.getElementById("duration-value");
-const	duration_control = document.getElementById("duration-control");
-const	friction = document.getElementById("friction");
-const	friction_value = document.getElementById("friction-value");
-const	friction_control = document.getElementById("friction-control");
-const	mode_ease = document.getElementById("mode-ease");
-const	mode_friction = document.getElementById("mode-friction");
-const	toggle = document.getElementById("toggle");
+const duration = document.getElementById("duration");
+const duration_value = document.getElementById("duration-value");
+const duration_control = document.getElementById("duration-control");
+const friction = document.getElementById("friction");
+const friction_value = document.getElementById("friction-value");
+const friction_control = document.getElementById("friction-control");
+const mode_ease = document.getElementById("mode-ease");
+const mode_friction = document.getElementById("mode-friction");
+const toggle = document.getElementById("toggle");
 
 function
-	apply()
+  apply()
 {
-	if (!scroll.running)
-		return ;
+  if (!scroll.running)
+    return ;
 
-	if (mode === "duration")
-		scroll.set_duration(Number(duration.value), document.body);
-	else
-		scroll.set_friction(Number(friction.value), document.body);
+  if (mode === "duration")
+    scroll.set_duration(Number(duration.value), document.body);
+  else
+    scroll.set_friction(Number(friction.value), document.body);
 }
 
 function
-	set_mode(next)
+  set_mode(next)
 {
-	mode = next;
-	mode_ease.setAttribute("aria-pressed", String(next === "duration"));
-	mode_friction.setAttribute("aria-pressed", String(next === "friction"));
-	duration_control.hidden = next !== "duration";
-	friction_control.hidden = next === "duration";
-	apply();
+  mode = next;
+  mode_ease.setAttribute("aria-pressed", String(next === "duration"));
+  mode_friction.setAttribute("aria-pressed", String(next === "friction"));
+  duration_control.hidden = next !== "duration";
+  friction_control.hidden = next === "duration";
+  apply();
 }
 
 duration.addEventListener(
-	"input",
-	function()
-	{
-		duration_value.textContent = duration.value + "s";
-		apply();
-	}
+  "input",
+  function()
+  {
+    duration_value.textContent = duration.value + "s";
+    apply();
+  }
 );
 friction.addEventListener(
-	"input",
-	function()
-	{
-		friction_value.textContent = friction.value;
-		apply();
-	}
+  "input",
+  function()
+  {
+    friction_value.textContent = friction.value;
+    apply();
+  }
 );
 mode_ease.addEventListener("click", function(){set_mode("duration");});
 mode_friction.addEventListener("click", function(){set_mode("friction");});
 toggle.addEventListener(
-	"click",
-	function()
-	{
-		if (scroll.running)
-		{
-			scroll.stop();
-			toggle.textContent = "Turn on";
-		}
-		else
-		{
-			scroll = smooth_scroll.start();
-			toggle.textContent = "Turn off";
-			apply();
-		}
-	}
+  "click",
+  function()
+  {
+    if (scroll.running)
+    {
+      scroll.stop();
+      toggle.textContent = "Turn on";
+    }
+    else
+    {
+      scroll = smooth_scroll.start();
+      toggle.textContent = "Turn off";
+      apply();
+    }
+  }
 );
   </script>
  </body>
